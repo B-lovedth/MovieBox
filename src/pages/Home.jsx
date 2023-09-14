@@ -1,9 +1,13 @@
+import Banner from "../components/Banner"
+import MovieList from "../components/MovieList"
 import NavBar from "../components/NavBar"
 
 const Home = () => {
   return (
     <>
-        <NavBar/>
+        <NavBar mode="transparent"/>
+        <Banner/>
+        <MovieList/>
     </>
   )
 }

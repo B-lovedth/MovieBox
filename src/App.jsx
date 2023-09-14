@@ -4,13 +4,15 @@ import './App.css'
 import Home from './pages/Home'
 import Layout from './pages/Layout'
 import Searched from './pages/Searched'
+import MovieDetails from './pages/layout/MovieDetails';
 
 function App() {
   const queryClient = new QueryClient(
     {
       defaultOptions:{
         queries:{
-          refetchOnWindowFocus:false
+          refetchOnWindowFocus:false,
+          useErrorBoundary: true,
         }
       }
     }
@@ -22,7 +24,7 @@ function App() {
         <Route path="/" element={<Home/>} />
         <Route path="/search/:title" element={<Searched/>} />
         <Route path="" element={<Layout/>}>
-          <Route path='/movies/:id'/>
+          <Route  path='/movies/:id' element={<MovieDetails/>}/>
         </Route>
      </Routes>
     </Router>

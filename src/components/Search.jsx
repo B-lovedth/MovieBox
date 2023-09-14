@@ -19,7 +19,7 @@ const Search = () => {
     } else {
       e.preventDefault();
       setError("");
-      navigate(`/searched/${input}`);
+      navigate(`/search/${input}`);
       setInput('')
     } 
   }
@@ -33,7 +33,7 @@ const Search = () => {
           type='text'
           onChange={(e) => setInput(e.target.value)}
           value={input}
-          placeholder='search'
+          placeholder='What Do you want to watch'
         />
       </StyleForm>
       <Error>{error}</Error>
@@ -41,7 +41,7 @@ const Search = () => {
   );
 }
 const Div = styled.div`
-  width:100%
+  width:80%
 `
 const Error = styled.h6`
   text-align: center;
@@ -53,19 +53,23 @@ const Error = styled.h6`
 
 const StyleForm = styled.form`
   position: relative;
-  width: 100%;
+  width: 60%;
+  margin:0 auto;
   input {
-    border: none;
     width:100%;
-    background: #f3f3f3;
-    font-size: 0.75rem;
-    font-weight:600;
-    color: #1a1a1a;
+    opacity: 0.8;
+    background: transparent;
+    font-size: 0.9rem;
+    font-weight:300;
+    color: #fff;
     letter-spacing:0.5px;
-    padding: 0.5rem 2.5rem;
-    border: none;
-    border-radius: 1rem;
+    padding: 0.5rem;
+    border: 1px solid #fff;
+    border-radius: 5px;
     outline: none;
+  }
+  input::placeholder{
+    color:inherit;
   }
   @media (max-width: 1200px) {
     margin: 0 auto;
@@ -78,8 +82,9 @@ const StyleForm = styled.form`
 const Button = styled.button`
   position: absolute;
   top: 50%;
-  left: 0%;
-  transform: translate(100%, -50%);
+  right: 0%;
+  background:transparent;
+  transform: translate(-20%, -50%);
   border: none;
   cursor:pointer;
   svg {
@@ -87,7 +92,7 @@ const Button = styled.button`
     top: 50%;
     left: 0%;
     transform: translate(100%, -50%);
-    color: #333;
+    color: #fff;
   }
 `;
 export default Search

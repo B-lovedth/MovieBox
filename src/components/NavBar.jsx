@@ -1,31 +1,38 @@
-import {Navbar,Container,NavDropdown} from 'react-bootstrap'
-import Logo from '../assets/Logo.svg'
-import Search from './Search'
-import { Link } from 'react-router-dom'
-const NavBar = () => {
-  return (
-    <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
-    <Container>
-      <Navbar.Brand href="#home"><img src={Logo} alt="logo" /><h3>MovieBox</h3></Navbar.Brand>
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav">
-        <Search/>
-        <Link to="#">Sign in</Link>
-        <NavDropdown title="Dropdown" id="collasible-nav-dropdown">
-            <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.2">
-              Another action
-            </NavDropdown.Item>
-            <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-            <NavDropdown.Divider />
-            <NavDropdown.Item href="#action/3.4">
-              Separated link
-            </NavDropdown.Item>
-          </NavDropdown>
-      </Navbar.Collapse>
-    </Container>
-  </Navbar>
-  )
-}
+import { Navbar, Container, Dropdown,Nav} from "react-bootstrap";
+import PropTypes from 'prop-types';
+import { logo, menu } from "../assets";
+import '../styles/Navbar.css'
+import Search from "./Search";
 
-export default NavBar
+const NavBar = ({mode}) => {
+  return (
+    <Navbar collapseOnSelect expand="lg" className={`bg-body-tertiary ${mode}`}>
+      <Container>
+        <Navbar.Brand href="/">
+          <img src={logo} alt="logo" />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Search />
+          <div className="nav-end">
+          <Nav.Link href="#">Sign in</Nav.Link>
+          <Dropdown>
+            <Dropdown.Toggle variant="" id="dropdown-basic">
+              <img src={menu} alt="" />
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+              <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+              <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+          </div>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+};
+NavBar.PropTypes={
+  mode:PropTypes.string
+}
+export default NavBar;
