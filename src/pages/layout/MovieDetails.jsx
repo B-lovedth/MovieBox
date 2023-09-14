@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useFetch } from "../../Hooks/useFetch";
-import { FaList, FaPlay, FaStar } from "react-icons/fa";
+import {  FaList, FaPlay, FaStar } from "react-icons/fa";
 import { MdLocalMovies } from "react-icons/md";
 import { Accordion } from "react-bootstrap";
 import Loading from "../../components/Loading";
@@ -32,6 +32,7 @@ const MovieDetails = () => {
       {isError && <h1>Failed to load</h1>}
       {movie && (
         <>
+       
       <div className="movie-banner">
         <img
           src={movie.backdrop_path!==null?`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`:`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
@@ -48,7 +49,7 @@ const MovieDetails = () => {
         <div className="info">
           <span>{movie.title}</span>
           <span>•</span>
-          <span>{new Date(movie?.release_date).toUTCString()}</span>
+          <span>{new Date(movie?.release_date).getUTCFullYear()}</span>
           <span>•</span>
           <span>PG-13</span>
           <span>•</span>
@@ -324,6 +325,27 @@ const Container = styled.div`
           align-items: center;
           gap: 10px;
           backdrop-filter: blur(1.5px);
+        }
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    padding-top:5rem;
+    .movie-details {
+      grid-template-columns: 100%;
+      .left {
+        grid-template-columns: 100%;
+      }
+      .right {
+        grid-template-columns: 100%;
+      }
+    }
+    .basic-info{
+      flex-direction:column;
+      .info{
+        flex-direction:column;
+        span{
+          font-size:0.7rem;
         }
       }
     }

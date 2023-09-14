@@ -1,5 +1,5 @@
 import { Navbar, Container, Dropdown,Nav} from "react-bootstrap";
-import PropTypes from 'prop-types';
+import propTypes from 'prop-types';
 import { logo, menu } from "../assets";
 import '../styles/Navbar.css'
 import Search from "./Search";
@@ -32,7 +32,7 @@ const NavBar = ({mode}) => {
     </Navbar>
   );
 };
-NavBar.PropTypes={
-  mode:PropTypes.string
+NavBar.propTypes={
+  mode:propTypes.string
 }
 export default NavBar;

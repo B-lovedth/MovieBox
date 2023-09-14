@@ -25,11 +25,11 @@ const MovieCard = ({...movieProps}) => {
         <div className="rating">
           <span>
             <img style={{ width: "30px" }} src={imdb} alt="imdb" />{" "}
-            <small>{Math.floor(movieProps.vote_average) * 10}.0/100</small>
+            <small>{movieProps?.vote_average * 10}.0/100</small>
           </span>
           <span>
             <img style={{ width: "15px" }} src={tomato} alt="rotten tomato" />
-            <small>{Math.floor(movieProps.vote_average) * 10}%</small>
+            <small>{movieProps?.vote_average * 10}%</small>
           </span>
         </div>
         <div className="genre">Action,Adventure</div>
@@ -119,6 +119,13 @@ const Movie = styled(Link)`
     opacity: 0.5;
     font-weight: 600;
     margin-top: 5px;
+  }
+  @media screen and (max-width:780px){
+    .movie-poster{
+      img{
+        height: 15rem;
+      }
+    }
   }
 `;
 export default MovieCard;

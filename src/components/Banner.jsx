@@ -34,6 +34,7 @@ const Container = styled.div`
 .banner_img{
   position: absolute;
     inset: 0;
+    object-fit: cover;
     height: 100%;
     width: 100%;
     z-index: -1;
@@ -80,6 +81,31 @@ const Container = styled.div`
       background:rgb(255, 165, 0);
     }
   }
+
 }
+@media screen and (max-width:780px){
+    .banner-details{
+      width:100%;
+      h1{
+        font-size:2rem;
+      }
+      .rating{
+        width:50%;
+        span{
+          small{
+            font-size:0.7rem;
+          }
+        }
+      }
+      p{
+        font-size:0.8rem;
+        width:100%;
+      }
+      button{
+        font-size: 0.8rem;
+        padding: .3rem .5rem;
+      }
+    }
+  }
 `
 export default Banner

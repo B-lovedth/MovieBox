@@ -11,6 +11,7 @@ function App() {
     {
       defaultOptions:{
         queries:{
+          retry:2,
           refetchOnWindowFocus:false,
           useErrorBoundary: true,
         }

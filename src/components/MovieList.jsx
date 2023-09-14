@@ -68,5 +68,17 @@ const Container = styled.div`
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 3.5rem;
   }
+  @media screen and (max-width:780px){
+    padding: 5%;
+    .top{
+      h2{
+        font-size: 1.5rem;
+      }
+    }
+    .movie-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0rem;
+  }
+  }
 `;
 export default MovieList;

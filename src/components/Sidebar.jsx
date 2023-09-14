@@ -1,50 +1,90 @@
 import { tv } from "../assets";
+import { useContext } from "react";
 import { GoHome } from "react-icons/go";
 import { BiCameraMovie } from "react-icons/bi";
 import { PiMonitorPlay } from "react-icons/pi";
 import { BsNewspaper } from "react-icons/bs";
 import { TbLogout } from "react-icons/tb";
 import styled from "styled-components";
+import { layoutContext } from "./Context";
+import { FaHamburger } from "react-icons/fa";
+
 const Sidebar = () => {
+  const { sidebar,setSidebar } = useContext(layoutContext);
+  const handleClick = () => { 
+    setSidebar((prevSidebar) => !prevSidebar)
+    console.log(sidebar)
+  }
   return (
-    <SideBar>
-      <a className="top" href="#home">
-        <img src={tv} alt="logo" />
-        <h3>MovieBox</h3>
-      </a>
-      <div className="middle">
-        <a className="link" href="/">
-          <GoHome />
-          <span>Home</span>
-        </a>
-        <a className="link active" href="#">
-          <BiCameraMovie />
-          <span>Movies</span>
-        </a>
-        <a className="link" href="#">
-          <PiMonitorPlay />
-          <span>TV Series</span>
-        </a>
-        <a className="link" href="#">
-          <BsNewspaper />
-          <span>Upcoming</span>
-        </a>
+    <Container>
+      <div className="toggle-btn">
+        <button onClick={handleClick}>
+          <FaHamburger />
+        </button>
       </div>
-      <div className="bottom">
-        <div className="box">
-          <h4>Play more quizes and earn free tickets</h4>
-          <p>50K people are playing now</p>
-          <button>Start Playing</button>
+      <SideBar className={sidebar ? "open" : ""}>
+        <a className="top" href="#home">
+          <img src={tv} alt="logo" />
+          <h3>MovieBox</h3>
+        </a>
+        <div className="middle">
+          <a className="link" href="/">
+            <GoHome />
+            <span>Home</span>
+          </a>
+          <a className="link active" href="#">
+            <BiCameraMovie />
+            <span>Movies</span>
+          </a>
+          <a className="link" href="#">
+            <PiMonitorPlay />
+            <span>TV Series</span>
+          </a>
+          <a className="link" href="#">
+            <BsNewspaper />
+            <span>Upcoming</span>
+          </a>
         </div>
-        <a className="link" href="#">
-          <TbLogout/>
-          <span>Log out</span>
-        </a>
-      </div>
-    </SideBar>
+        <div className="bottom">
+          <div className="box">
+            <h4>Play more quizes and earn free tickets</h4>
+            <p>50K people are playing now</p>
+            <button>Start Playing</button>
+          </div>
+          <a className="link" href="#">
+            <TbLogout />
+            <span>Log out</span>
+          </a>
+        </div>
+      </SideBar>
+    </Container>
   );
 };
-
+const Container = styled.div`
+  .toggle-btn{
+    display:none;
+  }
+  @media screen and (max-width: 768px) {
+    .toggle-btn{
+      display:block;
+      position:fixed;
+      top:0px;
+      right:0px;
+      left:0;
+      z-index:990;
+      button{
+        background:transparent;
+        border:none;
+        font-size:1.5rem;
+        color:#101010;
+        cursor:pointer;
+        &:focus{
+          outline:none;
+        }
+      }
+    }
+  }
+`
 const SideBar = styled.nav`
   height: 100vh;
   position: sticky;
@@ -57,6 +97,7 @@ const SideBar = styled.nav`
   align-items: center;
   gap: 1rem;
   border-right: 2px solid #ddd;
+  
   .top {
     display: flex;
     align-items: center;
@@ -78,7 +119,8 @@ const SideBar = styled.nav`
     width: 100%;
     gap: 10px;
     .link {
-      &:hover , &.active{
+      &:hover,
+      &.active {
         opacity: 1;
         border-right: 4px solid #ba0734;
         background: #be123c1c;
@@ -134,7 +176,7 @@ const SideBar = styled.nav`
         border: none;
         border-radius: 5px;
         color: #ba0734;
-        font-size:0.7rem;
+        font-size: 0.7rem;
         background-color: #be123c1c;
         font-weight: 600;
         cursor: pointer;
@@ -149,6 +191,16 @@ const SideBar = styled.nav`
         opacity: 1;
       }
     }
+  }
+  @media screen and (max-width: 768px) {
+    position: fixed;
+    left: -100%;
+    width:20rem;
+    background-color: #fff;
+    z-index: 899;
+    &.open {
+   left:0; 
+  }
   }
 `;
 export default Sidebar;
