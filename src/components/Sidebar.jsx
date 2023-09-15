@@ -7,23 +7,23 @@ import { BsNewspaper } from "react-icons/bs";
 import { TbLogout } from "react-icons/tb";
 import styled from "styled-components";
 import { layoutContext } from "./Context";
-import { FaHamburger } from "react-icons/fa";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 const Sidebar = () => {
-  const { sidebar,setSidebar } = useContext(layoutContext);
-  const handleClick = () => { 
-    setSidebar((prevSidebar) => !prevSidebar)
-    console.log(sidebar)
-  }
+  const { sidebar, setSidebar } = useContext(layoutContext);
+
   return (
     <Container>
       <div className="toggle-btn">
-        <button onClick={handleClick}>
-          <FaHamburger />
+        <button onClick={() => setSidebar(true)}>
+          <FaBars />
         </button>
       </div>
       <SideBar className={sidebar ? "open" : ""}>
         <a className="top" href="#home">
+          <button onClick={() => setSidebar(false)}>
+            <FaTimes />
+          </button>
           <img src={tv} alt="logo" />
           <h3>MovieBox</h3>
         </a>
@@ -61,30 +61,34 @@ const Sidebar = () => {
   );
 };
 const Container = styled.div`
-  .toggle-btn{
-    display:none;
+  .toggle-btn {
+    display: none;
   }
   @media screen and (max-width: 768px) {
-    .toggle-btn{
-      display:block;
-      position:fixed;
-      top:0px;
-      right:0px;
-      left:0;
-      z-index:990;
-      button{
-        background:transparent;
-        border:none;
-        font-size:1.5rem;
-        color:#101010;
-        cursor:pointer;
-        &:focus{
-          outline:none;
+    .toggle-btn {
+      display: block;
+      position: fixed;
+      top: 0px;
+      right: 0px;
+      left: 0;
+      z-index: 980;
+      backdrop-filter:blur(10px);
+      box-shadow: 0 1px 0.5rem #00000057;
+      button {
+        background: transparent;
+        border: none;
+        font-size: 1.5rem;
+        position: relative;
+        z-index: 999;
+        color: #101010;
+        cursor: pointer;
+        &:focus {
+          outline: none;
         }
       }
     }
   }
-`
+`;
 const SideBar = styled.nav`
   height: 100vh;
   position: sticky;
@@ -97,13 +101,17 @@ const SideBar = styled.nav`
   align-items: center;
   gap: 1rem;
   border-right: 2px solid #ddd;
-  
+
   .top {
     display: flex;
     align-items: center;
     gap: 15px;
     text-decoration: none;
     color: inherit;
+    position: relative;
+    button{
+      display:none;
+    }
     img {
       width: 40px;
     }
@@ -195,12 +203,27 @@ const SideBar = styled.nav`
   @media screen and (max-width: 768px) {
     position: fixed;
     left: -100%;
-    width:20rem;
+    width: 20rem;
     background-color: #fff;
-    z-index: 899;
+    z-index: 990;
     &.open {
-   left:0; 
-  }
+      left: 0;
+    }
+    .top {
+      align-self: flex-start;
+      padding-left: 1rem;
+      button {
+        display:inline;
+        position: absolute;
+        right: -160px;
+        top: -15px;
+        font-size: 1.5rem;
+        color: #101010;
+        &:focus {
+          outline: none;
+        }
+      }
+    }
   }
 `;
 export default Sidebar;

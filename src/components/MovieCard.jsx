@@ -17,7 +17,7 @@ const MovieCard = ({...movieProps}) => {
       </div>
       <div className="location-date">
         <span>USA</span>
-        <span>-</span>
+        <span>{" "}</span>
         <span data-testid="movie-release-date">{movieProps.release_date}</span>
       </div>
       <div className="movie-details">
@@ -25,11 +25,11 @@ const MovieCard = ({...movieProps}) => {
         <div className="rating">
           <span>
             <img style={{ width: "30px" }} src={imdb} alt="imdb" />{" "}
-            <small>{movieProps?.vote_average * 10}.0/100</small>
+            <small>{Math.round(movieProps?.vote_average * 10)}.0/100</small>
           </span>
           <span>
             <img style={{ width: "15px" }} src={tomato} alt="rotten tomato" />
-            <small>{movieProps?.vote_average * 10}%</small>
+            <small>{Math.round(movieProps?.vote_average * 10)}%</small>
           </span>
         </div>
         <div className="genre">Action,Adventure</div>

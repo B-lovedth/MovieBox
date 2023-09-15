@@ -1,144 +1,141 @@
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useFetch } from "../../Hooks/useFetch";
-import {  FaList, FaPlay, FaStar } from "react-icons/fa";
+import { FaList, FaPlay, FaStar } from "react-icons/fa";
 import { MdLocalMovies } from "react-icons/md";
 import { Accordion } from "react-bootstrap";
 import Loading from "../../components/Loading";
 const MovieDetails = () => {
-  const {id} = useParams()
-  const apiKey = import.meta.env.VITE_API_KEY
-  const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&append_to_response=images,credits`
-  const {data:movie,isError,isLoading} = useFetch(url)
+  const { id } = useParams();
+  const apiKey = import.meta.env.VITE_API_KEY;
+  const url = `https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}&append_to_response=images,credits`;
+  const { data: movie, isError, isLoading } = useFetch(url);
 
-  console.log(movie)
-  // localStorage.setItem("movie",JSON.stringify(data))
-  // let data = JSON.parse(localStorage.getItem("movie"));
-//   const dateString = movie?.release_date;
-// const parts = dateString?.split("-");
-
-// // Month is zero-based in JavaScript, so subtract 1 from the month value
-// const year = parseInt(parts[0]);
-// const month = parseInt(parts[1]) - 1;
-// const day = parseInt(parts[2]);
-
-// const utcMilliseconds = Date.UTC(year, month, day);
-
-// console.log(utcMilliseconds);
+  console.log(movie);
 
   return (
     <Container>
-      {isLoading && <Loading/>}
+      {isLoading && <Loading />}
       {isError && <h1>Failed to load</h1>}
       {movie && (
         <>
-       
-      <div className="movie-banner">
-        <img
-          src={movie.backdrop_path!==null?`https://image.tmdb.org/t/p/original/${movie.backdrop_path}`:`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-          alt=""
-        />
-        <button>
-          <span>
-            <FaPlay />
-          </span>
-          <span>Watch Trailer</span>
-        </button>
-      </div>
-      <div className="basic-info">
-        <div className="info">
-          <span>{movie.title}</span>
-          <span>•</span>
-          <span>{new Date(movie?.release_date).getUTCFullYear()}</span>
-          <span>•</span>
-          <span>PG-13</span>
-          <span>•</span>
-          <span>{movie.runtime}m</span>
-          <span className="genres">
-            {movie.genres?.map((array, key) => {
-              return <small key={key}>{array.name}</small>;
-            })}
-          </span>
-        </div>
-        <div className="rating">
-          <FaStar />
-          <span>{Math.floor(movie?.vote_average) * 10}</span>
-          <span>|</span>
-          <span>85K</span>
-        </div>
-      </div>
-      <div className="movie-details">
-        <div className="left">
-          <p className="overview">{movie.overview}</p>
-          <p>
-            Directors : <span className="names">
-              {movie.credits.crew.map((crew, key) => {
-                  if(crew.known_for_department==="Directing"){
-                    return <span key={key}>{crew.name} ,{" "}</span>
-                  }
+          <div className="movie-banner">
+            <img
+              src={
+                movie.backdrop_path !== null
+                  ? `https://image.tmdb.org/t/p/original/${movie.backdrop_path}`
+                  : `https://image.tmdb.org/t/p/original/${movie.poster_path}`
+              }
+              alt=""
+            />
+            <button>
+              <span>
+                <FaPlay />
+              </span>
+              <span>Watch Trailer</span>
+            </button>
+          </div>
+          <div className="basic-info">
+            <div className="info">
+              <span data-testid="movie-title">{movie.title}</span>
+              <span className="properties">
+                <span>•</span>
+                <span data-testid="movie-release-date">{new Date(movie?.release_date).getUTCFullYear()}</span>
+                <span>•</span>
+                <span>PG-13</span>
+                <span>•</span>
+                <span data-testid="movie-runtime">{movie.runtime}</span>
+              </span>
+              <span className="genres">
+                {movie.genres?.map((array, key) => {
+                  return <small key={key}>{array.name}</small>;
                 })}
-            </span>
-          </p>
-          <p>
-            Writers : <span className="names">{
-              movie.credits.crew.map((crew, key) => {
-                  if(crew.known_for_department==="Writing"){
-                    return <span key={key}>{crew.name} ,{" "}</span>
-                  }
-              })
-            }</span>
-          </p>
-          <p>
-            Stars : <span className="names">{
-              movie.credits.cast.map((cast, key) => {
-                if(key<5){
-                  return <span key={key}>{cast.name} ,{" "}</span>
-                }
-              })
-            }</span>
-          </p>
-          <div className="tab">
-            <span className="mytab">
-              Top Rated Movie #{Math.floor(movie.popularity)}
-            </span>
-            <Accordion>
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>Award 9 nominations</Accordion.Header>
-                <Accordion.Body></Accordion.Body>
-              </Accordion.Item>
-            </Accordion>
-          </div>
-        </div>
-        <div className="right">
-          <div className="top_btns">
-            <button>
-              <MdLocalMovies /> See Showtimes
-            </button>
-            <button>
-              <FaList />
-              More Watch Options
-            </button>
-          </div>
-          <div className="other-movies">
-            <div className="posters">
-              {movie.images.posters.map((poster, key) => {
-                if(key<4){
-                return (
-                  <img
-                    key={key}
-                    src={`https://image.tmdb.org/t/p/original/${poster.file_path}`}
-                    alt=""
-                  />
-                )}
-              })}
+              </span>
             </div>
-            <div className="bottom">
-              <FaList /> The best movies and shows in september
+            <div className="rating">
+              <FaStar />
+              <span>{Math.floor(movie?.vote_average) * 10}</span>
+              <span>|</span>
+              <span>85K</span>
             </div>
           </div>
-        </div>
-      </div>
-      </>)}
+          <div className="movie-details">
+            <div className="left">
+              <p className="overview" data-testid="movie-overview">{movie.overview}</p>
+              <p>
+                Directors :{" "}
+                <span className="names">
+                  {movie.credits.crew.map((crew, key) => {
+                    if (crew.known_for_department === "Directing") {
+                      return <span key={key}>{crew.name} , </span>;
+                    }
+                  })}
+                </span>
+              </p>
+              <p>
+                Writers :{" "}
+                <span className="names">
+                  {movie.credits.crew.map((crew, key) => {
+                    if (crew.known_for_department === "Writing") {
+                      return <span key={key}>{crew.name} , </span>;
+                    }
+                  })}
+                </span>
+              </p>
+              <p>
+                Stars :{" "}
+                <span className="names">
+                  {movie.credits.cast.map((cast, key) => {
+                    if (key < 5) {
+                      return <span key={key}>{cast.name} , </span>;
+                    }
+                  })}
+                </span>
+              </p>
+              <div className="tab">
+                <span className="mytab">
+                  Top Rated Movie #{Math.floor(movie.popularity)}
+                </span>
+                <Accordion>
+                  <Accordion.Item eventKey="0">
+                    <Accordion.Header>Award 9 nominations</Accordion.Header>
+                    <Accordion.Body></Accordion.Body>
+                  </Accordion.Item>
+                </Accordion>
+              </div>
+            </div>
+            <div className="right">
+              <div className="top_btns">
+                <button>
+                  <MdLocalMovies /> See Showtimes
+                </button>
+                <button>
+                  <FaList />
+                  More Watch Options
+                </button>
+              </div>
+              <div className="other-movies">
+                <div className="posters">
+                  {movie.images.posters.map((poster, key) => {
+                    if (key < 4) {
+                      return (
+                        <img
+                          key={key}
+                          src={`https://image.tmdb.org/t/p/original/${poster.file_path}`}
+                          alt=""
+                        />
+                      );
+                    }
+                  })}
+                </div>
+                <div className="bottom">
+                  <FaList /> The best movies and shows in september
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
     </Container>
   );
 };
@@ -147,6 +144,12 @@ const Container = styled.div`
   min-height: 100vh;
   padding: 20px;
   position: relative;
+  button{
+    &:focus,&:hover{
+      outline:none !important;
+      border:none !important;
+    }
+  }
   .movie-banner {
     position: relative;
     height: 23rem;
@@ -202,10 +205,18 @@ const Container = styled.div`
       display: flex;
       align-items: center;
       gap: 1rem;
+      flex-wrap:wrap;
       span {
         font-weight: 500;
         font-size: 1.25rem;
         color: #363636;
+      }
+      .properties{
+        display:flex;
+        gap:1rem;
+        span{
+          font-size:inherit;
+        }
       }
     }
     .genres {
@@ -330,22 +341,56 @@ const Container = styled.div`
     }
   }
   @media (max-width: 768px) {
-    padding-top:5rem;
+    padding: 5rem 10px 1rem; 
+    .movie-banner {
+      height: 13rem;
+    }
     .movie-details {
       grid-template-columns: 100%;
+      gap:3rem;
       .left {
         grid-template-columns: 100%;
+        .tab {
+          display: flex;
+          align-items: stretch;
+          flex-direction: column;
+          gap: 1rem;
+        }
       }
       .right {
         grid-template-columns: 100%;
       }
     }
-    .basic-info{
-      flex-direction:column;
-      .info{
-        flex-direction:column;
-        span{
-          font-size:0.7rem;
+    .basic-info {
+      flex-direction: column;
+      gap: 1rem;
+      .genres {
+        font-size: 0.7rem;
+        display: grid;
+        gap: 0.5rem;
+        grid-template-columns: repeat(2, 1fr);
+        justify-items: stretch;
+        text-align: center;
+        small {
+          margin-left: 0;
+        }
+      }
+      .info {
+        display: grid;
+        grid-template-columns: 1fr;
+        .properties {
+          text-align: center;
+          display: flex;
+          justify-content: space-between;
+          :first-child {
+            display: none;
+          }
+        }
+        span {
+          font-size: 0.8rem;
+          &:first-child{
+            font-size: 1rem;
+          }
         }
       }
     }
