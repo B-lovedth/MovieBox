@@ -40,7 +40,7 @@ const MovieDetails = () => {
               <span data-testid="movie-title">{movie.title}</span>
               <span className="properties">
                 <span>•</span>
-                <span data-testid="movie-release-date">{new Date(movie?.release_date).getUTCFullYear()}</span>
+                <span data-testid="movie-release-date">{new Date(movie?.release_date).toUTCString()}</span>
                 <span>•</span>
                 <span>PG-13</span>
                 <span>•</span>
